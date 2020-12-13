@@ -1,24 +1,26 @@
-import logo from './logo.svg';
 import './App.css';
 
 function App() {
   return (
+    <BrowserRouter>
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Route 
+        exact
+        path="/procedures" 
+        render={() => { return <Skills skillsList={skillsList} />}} 
+      />
+      <Route 
+        path="/skills/:id" 
+        render={(routeProps) => {
+          const id = routeProps.match.params.id
+          const targetSkill = skillsList.find((p) => p.id === parseInt(id))
+          return <SkillDetails skill={targetSkill} />
+        }} 
+      />
+      <Route path="/weather" component={Weather}/>
+      <Route path="/github" component={Github}/>
     </div>
+    </BrowserRouter>
   );
 }
 
